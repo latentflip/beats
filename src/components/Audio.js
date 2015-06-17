@@ -1,4 +1,5 @@
 import React from 'react/addons';
+import teoria from 'teoria';
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -43,7 +44,12 @@ export let Oscillator = React.createClass({
   componentDidMount() {
     this.node = this.props.audioContext.createOscillator();
     this.node.type = 'square';
-    this.node.frequency.value = this.props.frequency;
+    if (this.props.note) {
+      this.node.frequency.value = teoria.note(this.props.note).fq();
+
+    } else {
+      this.node.frequency.value = this.props.frequency;
+    }
     this.node.connect(this.props.destination);
     this.node.start(0);
   },

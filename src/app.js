@@ -1,23 +1,40 @@
 import React from 'react'
 import App from './components/app'
+import teoria from 'teoria'
 
 const data = {
   notes: []
 };
 
+let keysToNotes = {
+  65: 'a3',
+  83: 'b3',
+  68: 'c4',
+  70: 'd4',
+
+  74: 'e4',
+  75: 'f4',
+  76: 'g4',
+  186: 'a4',
+};
+
 let currentNotes = {};
 
 document.addEventListener('keydown', (e) => {
-  e.preventDefault();
-  if (!currentNotes[e.keyCode]) {
-    currentNotes[e.keyCode] = { on: Date.now(), index: e.keyCode };
+  if (!currentNotes[e.keyCode] && keysToNotes[e.keyCode]) {
+    e.preventDefault();
+    currentNotes[e.keyCode] = {
+      on: Date.now(),
+      note: keysToNotes[e.keyCode],
+      frequency: teoria.note(keysToNotes[e.keyCode]).fq()
+    };
     data.notes.push(currentNotes[e.keyCode]);
   }
 });
 
 document.addEventListener('keyup', (e) => {
-  e.preventDefault();
   if (currentNotes[e.keyCode]) {
+    e.preventDefault();
     currentNotes[e.keyCode].off = Date.now();
     delete currentNotes[e.keyCode];
   }

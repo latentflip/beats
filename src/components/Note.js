@@ -17,7 +17,7 @@ export default Radium(React.createClass({
       noteStyle.base,
       noteStyle.position(position),
       { width: `${width}px` },
-      { top: `${20 + (this.props.index%10)*20}px` }
+      { top: `${(this.props.frequency - 200)}px` }
       ]}/>
     );
   }

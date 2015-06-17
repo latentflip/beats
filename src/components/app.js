@@ -9,7 +9,7 @@ export default React.createClass({
 
     return (
       <div style={appStyle}>
-        <h1>Hit dem keys!</h1>
+        <h1>Hit dem keys ( asdf jkl; )</h1>
 
         {data.notes.map((n) => {
           return (
@@ -18,7 +18,9 @@ export default React.createClass({
         })}
 
         <Context>
-          {data.notes.filter(n => !n.off).map(n => <Oscillator frequency={n.index*50}/>)}
+          {data.notes.filter(n => !n.off).map(n => (
+            <Oscillator note={n.note}/>
+          ))}
         </Context>
       </div>
     );
